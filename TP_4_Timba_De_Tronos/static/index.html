@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Timba de Tronos · Hardy-Weinberg en Poniente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="crest">⚔</span><h1>Timba de Tronos</h1><small>Hardy-Weinberg en Poniente</small></div>
+  <nav class="tabs">
+    <button class="tab active" data-tab="atlas">🗺 Atlas</button>
+    <button class="tab" data-tab="juego">⚔ El Juego</button>
+  </nav>
+  <div class="score">Puntaje <b id="score">0</b> · Rondas <b id="rondas">0</b> · Récord <b id="record">0</b></div>
+</header>
+
+<!-- =============== ATLAS =============== -->
+<section id="view-atlas" class="view active">
+  <div class="mapwrap">
+  <svg id="mapa" viewBox="0 0 600 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa estilizado de Poniente">
+    <defs>
+      <linearGradient id="mar" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1f3a47"/><stop offset=".5" stop-color="#16303c"/><stop offset="1" stop-color="#0f2430"/>
+      </linearGradient>
+      <linearGradient id="tierra" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e3d6b0"/><stop offset=".55" stop-color="#d4c08f"/><stop offset="1" stop-color="#c9ad74"/>
+      </linearGradient>
+      <pattern id="olas" width="46" height="18" patternUnits="userSpaceOnUse">
+        <path d="M0 9 q11.5 -8 23 0 t23 0" fill="none" stroke="#7fb0c4" stroke-width=".8" opacity=".22"/>
+      </pattern>
+      <filter id="rugoso" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="11" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="papel" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="g"/>
+        <feColorMatrix in="g" type="matrix" values="0 0 0 0 .35  0 0 0 0 .25  0 0 0 0 .1  0 0 0 .28 0" result="t"/>
+        <feComposite in="t" in2="SourceGraphic" operator="in" result="tc"/>
+        <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="tc"/></feMerge>
+      </filter>
+      <radialGradient id="vineta" cx=".5" cy=".5" r=".75">
+        <stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/>
+      </radialGradient>
+      <g id="mont"><path d="M0 0 L9 -15 L13 -9 L18 -18 L30 0 Z" fill="#a89468" stroke="#4a3d27" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M18 -18 L24 -7 L20 -5 L17 -10 L13 -9 Z" fill="#6f5f3d" opacity=".55"/></g>
+      <g id="arbol"><circle r="5" cy="-5" fill="#6d8a4a" stroke="#34502a" stroke-width="1"/><rect x="-1" width="2" height="5" fill="#4a3320"/></g>
+    </defs>
+
+    <rect width="600" height="1000" fill="url(#mar)"/>
+    <rect width="600" height="1000" fill="url(#olas)"/>
+
+    <!-- TIERRAS (contorno irregularizado con filtro) -->
+    <g filter="url(#rugoso)">
+      <g id="costa" fill="none" stroke="#9cc6d6" stroke-opacity=".22" stroke-width="16" stroke-linejoin="round">
+        <path id="contorno" d="M150,90 L250,50 L350,45 L430,70 L445,120 L425,170 L430,220 L405,270 L395,320 L370,360 L345,400 L335,440 L350,480 L400,500 L430,540 L425,590 L420,610 L375,640 L380,680 L430,700 L455,735 L445,790 L435,840 L445,885 L420,925 L385,950 L330,968 L270,950 L210,930 L160,905 L115,870 L100,830 L105,780 L125,730 L120,690 L135,650 L135,600 L130,560 L150,520 L185,490 L255,470 L275,440 L265,400 L240,370 L200,350 L185,300 L170,250 L160,200 L165,150 Z"/>
+      </g>
+      <g fill="url(#tierra)" stroke="#5c4318" stroke-width="2.4" stroke-linejoin="round" filter="url(#papel)">
+        <use href="#contorno"/>
+        <ellipse cx="478" cy="640" rx="30" ry="21"/>                               <!-- Rocadragón -->
+        <ellipse cx="468" cy="170" rx="24" ry="30"/>                               <!-- Skagos -->
+        <path d="M82,425 q14,-14 28,-3 q10,12 -4,22 q-18,8 -24,-19z"/>             <!-- Islas del Hierro -->
+        <path d="M70,468 q12,-10 22,0 q4,10 -8,14 q-14,0 -14,-14z"/>
+        <path d="M110,482 q10,-8 18,2 q0,10 -10,10 q-10,-2 -8,-12z"/>
+        <path d="M60,880 q14,-12 28,-2 q6,14 -8,22 q-18,-2 -20,-20z"/>             <!-- El Rejo -->
+      </g>
+      <!-- El Muro -->
+      <path d="M156,112 L446,112" stroke="#f2f6f8" stroke-width="6" stroke-linecap="round"/>
+      <path d="M156,112 L446,112" stroke="#9fc3d4" stroke-width="2" stroke-dasharray="10 5"/>
+    </g>
+
+    <!-- relieve -->
+    <g>
+      <use href="#mont" x="300" y="78"/><use href="#mont" x="330" y="86"/><use href="#mont" x="270" y="86"/>
+      <use href="#mont" x="372" y="520"/><use href="#mont" x="352" y="534"/><use href="#mont" x="388" y="540"/>
+      <use href="#mont" x="262" y="898"/><use href="#mont" x="292" y="888"/><use href="#mont" x="322" y="896"/><use href="#mont" x="244" y="884"/>
+      <use href="#mont" x="205" y="410"/><use href="#mont" x="315" y="330"/>
+      <use href="#arbol" x="210" y="262"/><use href="#arbol" x="224" y="274"/><use href="#arbol" x="200" y="282"/><use href="#arbol" x="218" y="296"/>
+      <use href="#arbol" x="360" y="190"/><use href="#arbol" x="374" y="202"/><use href="#arbol" x="350" y="206"/>
+      <use href="#arbol" x="270" y="620"/><use href="#arbol" x="284" y="632"/><use href="#arbol" x="402" y="780"/><use href="#arbol" x="388" y="794"/>
+      <use href="#arbol" x="190" y="660"/><use href="#arbol" x="204" y="672"/>
+      <path d="M262,545 Q290,575 322,590 T372,642" fill="none" stroke="#5a97b2" stroke-width="2.2" opacity=".85"/>
+      <path d="M215,600 Q250,590 275,560" fill="none" stroke="#5a97b2" stroke-width="1.8" opacity=".8"/>
+      <path d="M170,700 Q220,690 250,660 T300,640" fill="none" stroke="#5a97b2" stroke-width="1.8" opacity=".8"/>
+    </g>
+
+    <!-- rótulos de regiones y mares -->
+    <text class="region" x="300" y="165">EL NORTE</text>
+    <text class="region" x="303" y="445" style="font-size:9px;letter-spacing:.2em">EL CUELLO</text>
+    <text class="region" x="268" y="522" style="font-size:10px;letter-spacing:.25em">TIERRAS FLUVIALES</text>
+    <text class="region" x="385" y="566" style="font-size:10px;letter-spacing:.2em">EL VALLE</text>
+    <text class="region" x="262" y="602" style="font-size:9px;letter-spacing:.2em">TIERRAS DEL OESTE</text>
+    <text class="region" x="260" y="705" style="font-size:12px">EL DOMINIO</text>
+    <text class="region" x="392" y="832" style="font-size:9px;letter-spacing:.18em">TIERRAS DE</text><text class="region" x="392" y="844" style="font-size:9px;letter-spacing:.18em">LA TORMENTA</text>
+    <text class="region" x="300" y="940" style="font-size:12px">DORNE</text>
+    <text class="region" x="300" y="35" style="font-size:11px;fill:#b7d3de;opacity:.5">MÁS ALLÁ DEL MURO</text>
+    <text class="region" x="300" y="106" style="font-size:9px;fill:#fff;opacity:.9;letter-spacing:.3em">EL MURO</text>
+    <text class="region" x="50" y="300" style="fill:#b7d3de;opacity:.45;font-size:11px" transform="rotate(-90 50 300)">MAR DEL OCASO</text>
+    <text class="region" x="545" y="450" style="fill:#b7d3de;opacity:.45;font-size:11px" transform="rotate(90 545 450)">MAR ESTRECHO</text>
+
+    <!-- rosa de los vientos -->
+    <g transform="translate(528,930)" opacity=".85">
+      <circle r="32" fill="none" stroke="#c9a227" stroke-width="1.2"/><circle r="4" fill="#c9a227"/>
+      <path d="M0,-38 L5,-5 L0,0 L-5,-5Z M0,38 L5,5 L0,0 L-5,5Z M-38,0 L-5,5 L0,0 L-5,-5Z M38,0 L5,5 L0,0 L5,-5Z" fill="#c9a227" opacity=".75"/>
+      <text y="-44" text-anchor="middle" font-family="Cinzel,serif" font-size="13" fill="#e8cd6a" font-weight="700">N</text>
+    </g>
+    <text x="300" y="22" text-anchor="middle" font-family="Cinzel,serif" font-size="17" font-weight="700" letter-spacing="9" fill="#e8cd6a" style="paint-order:stroke;stroke:#000;stroke-width:3px">PONIENTE</text>
+
+    <rect width="600" height="1000" fill="url(#vineta)" pointer-events="none"/>
+    <g id="pins"></g>
+  </svg>
+  </div>
+
+  <aside id="panel-casa" class="parchment">
+    <div class="vacio"><div class="big">🏰</div>
+      <h2>Elegí una casa en el mapa</h2>
+      <p>Cada emblema es una casa noble. Al tocarlo verás la composición de alelos de sus dos locus (pelo y ojos) y cómo se ve la ley de Hardy-Weinberg en su población.</p>
+    </div>
+  </aside>
+</section>
+
+<!-- =============== JUEGO =============== -->
+<section id="view-juego" class="view"></section>
+
+<!-- =============== MODAL =============== -->
+<div id="modal" class="modal hidden"><div class="card" id="modal-body"></div></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
