@@ -1,5 +1,5 @@
 """
-app.py -- Servidor local del minijuego "Sangre y Linaje".
+app.py -- Servidor local del minijuego "Timba de Tronos".
 
     pip install -r requirements.txt
     python app.py          ->  http://localhost:5000
