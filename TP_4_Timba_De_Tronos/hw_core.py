@@ -212,7 +212,7 @@ def crear_casas(seed: int = 42) -> dict:
         "Stark": Casa("Stark", {"M": 0.7, "r": 0.3}, {"C": 1.0}, seed=seed),
         "Lannister": Casa("Lannister", {"n": 1.0}, {"a": 1.0}, seed=seed),
         "Targaryen": Casa("Targaryen", {"b": 0.6, "N": 0.4}, {"t": 1.0}, seed=seed),
-        "Martell": Casa("Martell", {"v": 0.5, "M": 0.5}, {"C": 1.0}, seed=seed),
+        "Martell": Casa("Martell", {"M": 0.75, "N": 0.25}, {"C": 1.0}, seed=seed),
         "Blackfyre": Casa("Blackfyre", {"b": 0.5, "N": 0.5},
                           {"t": 0.5, "v": 0.5}, seed=seed),
         "Baratheon": Casa("Baratheon", {"N": 1.0}, {"v": 1.0}, seed=seed),

@@ -4,7 +4,20 @@ Prototipo local: backend Python (tu notebook) + frontend web sin dependencias.
 
 ## Correr
 ```bash
+
+# Crear entorno virtual
+
+python -m venv .venv
+
+source .venv\Scripts\Activate.ps1 # Windows
+source source .venv/bin/activate # Linux 
+
+# Instalar requisitos
+
 pip install -r requirements.txt     # flask, numpy 
+
+# Iniciar el programa.
+
 python app.py                       # abre http://localhost:5000
 ```
 Variables opcionales: `PORT=8080`, `NO_BROWSER=1`.
